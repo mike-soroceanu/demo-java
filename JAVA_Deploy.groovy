@@ -31,5 +31,15 @@ pipeline {
         '''
       }
     }
+
+    stage ('Build Docker image') {
+      steps { 
+        sh '''
+          docker build -t mikesoroceanu/simplejavaapp-mvn-docker:${BUILD_ID} .
+          docker build -t mikesoroceanu/simplejavaapp-mvn-docker:latest .
+        '''
+      }
+    }
+
   }
 }

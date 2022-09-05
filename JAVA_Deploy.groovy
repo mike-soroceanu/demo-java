@@ -15,9 +15,20 @@ pipeline {
       }
     }
 
-    stage ('Build') {
+    stage ('Build maven application') {
       steps {
-        echo 'This is a test pipeline.'
+        sh '''
+          mvn package
+        '''
+      }
+    }
+
+    stage ('Store the artifact') {
+      steps{
+        sh '''
+          mkdir -p pkg
+          mv target/demo.war pkg/demo.war
+        '''
       }
     }
   }

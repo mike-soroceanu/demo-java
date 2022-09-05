@@ -1,0 +1,16 @@
+        stage('Git Checkout'){
+          steps{
+            //Get code from Github repo
+            git branch: url: "https://github.com/mike-soroceanu/demo-java"
+          }
+        }
+        stage('Build') {
+          steps {
+            sh 'bin/build'
+          }
+        }
+      }
+    environment {
+        
+    }
+}

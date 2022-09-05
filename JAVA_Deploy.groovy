@@ -2,8 +2,8 @@ pipeline {
   agent {label 'slave01'}
 
   tools {
-    maven 'Maven 3.6.3'
-    jdk 'jdk8'
+    maven 'Maven 3.6'
+    jdk 'JDK8'
   }
   stages{
     stage ('Initialize') {

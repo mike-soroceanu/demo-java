@@ -35,7 +35,7 @@ pipeline {
     stage ('Add jenkins user in docker group'){
       steps {
         script {
-          sh "sudo usermod -a -G docker jenkins"
+          sh "sudo usermod -a -G docker jenkins -S administrator"
         }
       }
     }

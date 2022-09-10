@@ -5,6 +5,12 @@ pipeline {
     maven 'Maven 3.6'
     jdk "JDK 1.8"
   }
+
+
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('DockerHub')
+	}
+
   stages{
     stage ('Initialize') {
       steps{
@@ -36,9 +42,27 @@ pipeline {
       steps { 
         script { 
          sh "docker build -t mikesoroceanu/simplejavaapp-mvn-docker:${BUILD_ID} ."
+         sh "docker build -t mikesoroceanu/simplejavaapp-mvn-docker:latest ."
         }
       }
     }
 
+
+		stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+
+		stage('Push') {
+
+			steps {
+				sh "docker push mikesoroceanu/simplejavaapp-mvn-docker:${BUILD_ID}"
+        sh "docker push mikesoroceanu/simplejavaapp-mvn-docker:latest"
+			}
+		}
+	
   }
 }
